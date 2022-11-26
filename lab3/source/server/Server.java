@@ -1,3 +1,5 @@
+package server;
+
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
@@ -46,11 +48,14 @@ public class Server {
             if(queryMap.get("str") != null) {
                 String str = queryMap.get("str");
                 if(str != null) {
-                    System.out.println("Reversing param= " + str);
-                    response = new StringBuilder(str).reverse().toString();
+                    System.out.println("Working");
+                    JSONObject obj = new JSONObject();
+                    obj.put("name", "foo");
+                    obj.put("num","test ");
+                    response = obj.toJSONString();
                 }
             }
-            else{
+            else {
                 System.out.println("Missing str parameter!");
                 response = "Missing str parameter!";
                 t.sendResponseHeaders(400, response.length());
