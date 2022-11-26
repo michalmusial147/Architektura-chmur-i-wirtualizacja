@@ -1,2 +1,2 @@
 #!/bin/bash
-java ./server.java
+javac -classpath ./ ./Server.java
