@@ -1,2 +1,3 @@
 #!/bin/bash
-javac -classpath ./ ./Server.java
+java -cp "./json-simple-1.1.1.jar"  ./Server.java
+

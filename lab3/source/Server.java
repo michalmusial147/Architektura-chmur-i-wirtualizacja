@@ -1,4 +1,4 @@
-package server;
+
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -41,6 +41,8 @@ public class Server {
 
     static class MyHandler implements HttpHandler {
 
+        //example { "lowercase" : liczba, "uppercase" : liczba, "digits" : liczba, "special" : liczba}
+
         @Override
         public void handle(HttpExchange t) throws IOException {
             String response = "";
@@ -50,15 +52,21 @@ public class Server {
                 if(str != null) {
                     System.out.println("Working");
                     JSONObject obj = new JSONObject();
-                    obj.put("name", "foo");
-                    obj.put("num","test ");
+
+                    obj.put("lowercase", "foo");
+
+                    obj.put("uppercase","test ");
+
+                    obj.put("digits","test ");
+
+                    obj.put("special","test ");
+
                     response = obj.toJSONString();
                 }
             }
             else {
                 System.out.println("Missing str parameter!");
                 response = "Missing str parameter!";
-                t.sendResponseHeaders(400, response.length());
             }
             
             t.sendResponseHeaders(200, response.length());
