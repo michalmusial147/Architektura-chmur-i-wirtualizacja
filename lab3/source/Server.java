@@ -38,43 +38,23 @@ public class Server {
     }
 
     static class MyHandler implements HttpHandler {
-    	
-    	
+
         @Override
         public void handle(HttpExchange t) throws IOException {
             String response = "";
             Map<String, String> queryMap = queryToMap(t.getRequestURI().getQuery());
-            if(queryMap == null) {
-                System.out.println("Querry param was not provided!");
-                response = "Hello World from java!\n";
-                
-            }
-            else if(queryMap.get("cmd").equals("time")) {
-                Instant nowUtc = Instant.now();
-                ZoneId warsaw = ZoneId.of("Europe/Warsaw");
-                ZonedDateTime nowWarsaw = ZonedDateTime.ofInstant(nowUtc, warsaw);
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-                String formattedString = nowWarsaw.format(formatter);
-                response = formattedString + "\n";
-            }
-            else if(queryMap.get("cmd").equals("rev")) {
+            if(queryMap.get("str") != null) {
                 String str = queryMap.get("str");
                 if(str != null) {
                     System.out.println("Reversing param= " + str);
                     response = new StringBuilder(str).reverse().toString();
-                } 
-                else{
-                    System.out.println("Missing str parameter!");
-                    response = "Missing str parameter!";
-                    t.sendResponseHeaders(400, response.length());
                 }
             }
-            else {
-                System.out.println("Wrong query params!");
+            else{
+                System.out.println("Missing str parameter!");
+                response = "Missing str parameter!";
                 t.sendResponseHeaders(400, response.length());
-                response = "Wrong query params!";
             }
-
             
             t.sendResponseHeaders(200, response.length());
             OutputStream os = t.getResponseBody();
