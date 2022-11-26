@@ -53,13 +53,13 @@ public class Server {
                     System.out.println("Working");
                     JSONObject obj = new JSONObject();
 
-                    obj.put("lowercase", "foo");
+                    obj.put("lowercase", countLowerCase(str));
 
-                    obj.put("uppercase","test ");
+                    obj.put("uppercase", countUpperCase(str));
 
-                    obj.put("digits","test ");
+                    obj.put("digits", countDigits(str));
 
-                    obj.put("special","test ");
+                    obj.put("special","test");
 
                     response = obj.toJSONString();
                 }
@@ -75,6 +75,18 @@ public class Server {
             os.close();
 	   
         }
+    }
+
+    private static long countUpperCase(String inputString) {
+        return inputString.chars().filter((s)->Character.isUpperCase(s)).count();
+    }
+
+    private static long countLowerCase(String inputString) {
+        return inputString.chars().filter((s)->Character.isLowerCase(s)).count();
+    }
+
+    private static long countDigits(String inputString) {
+        return inputString.chars().filter((s)->Character.isDigit(s)).count();
     }
 
 }
