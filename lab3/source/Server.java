@@ -59,7 +59,7 @@ public class Server {
 
                     obj.put("digits", countDigits(str));
 
-                    obj.put("special","test");
+                    obj.put("special", countOther(str));
 
                     response = obj.toJSONString();
                 }
@@ -87,6 +87,10 @@ public class Server {
 
     private static long countDigits(String inputString) {
         return inputString.chars().filter((s)->Character.isDigit(s)).count();
+    }
+
+    private static long countOther(String inputString) {
+        return inputString.chars().filter((s) -> !Character.isDigit(s) && !Character.isLetter(s) && !Character.isWhitespace(s) ).count();
     }
 
 }
